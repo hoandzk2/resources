@@ -1,6 +1,6 @@
 local Translations = {
     info = {
-        open_shop = '[E] Shop',
+        open_shop = '[E] Cửa Hàng',
         deliver_e = '~g~E~w~ - Deliver Products',
         deliver = 'Deliver Products',
     },
