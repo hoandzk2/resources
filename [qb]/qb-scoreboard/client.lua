@@ -110,7 +110,7 @@ else
         scoreboardOpen = false
     end, false)
 
-    RegisterKeyMapping('+scoreboard', 'Open Scoreboard', 'keyboard', Config.OpenKey)
+    RegisterKeyMapping('+scoreboard', 'Mở bảng điểm', 'keyboard', Config.OpenKey)
 end
 
 -- Threads
