@@ -7,16 +7,16 @@ Config.RepeatTimeout = 2000
 Config.CallRepeats = 10
 Config.OpenPhone = 'M'
 
--- Set this to true if you wish to use Fivemerr (https://fivemerr.com/) for media uploads. 
--- Ensure to add your API key to server/main.lua 
+-- - Đặt điều này thành True nếu bạn muốn sử dụng FiVemerr (https://fivemerr.com/) để tải lên phương tiện. 
+-- - Đảm bảo thêm khóa API của bạn vào Server/main.lua
 Config.Fivemerr = false
 
 Config.PhoneApplications = {
     ['phone'] = {
-        app = 'Điện Thoại',
+        app = 'phone',
         color = '#04b543',
         icon = 'fa fa-phone-alt',
-        tooltipText = 'Phone',
+        tooltipText = 'Điện thoại',
         tooltipPos = 'top',
         job = false,
         blockedjobs = {},
@@ -72,7 +72,7 @@ Config.PhoneApplications = {
         app = 'mail',
         color = '#ff002f',
         icon = 'fas fa-envelope-open-text',
-        tooltipText = 'Mail',
+        tooltipText = 'Thư',
         job = false,
         blockedjobs = {},
         slot = 6,
@@ -102,7 +102,7 @@ Config.PhoneApplications = {
         app = 'crypto',
         color = '#004682',
         icon = 'fas fa-coins',
-        tooltipText = 'Crypto',
+        tooltipText = 'Tiền điện tử',
         job = false,
         blockedjobs = {},
         slot = 9,
@@ -112,7 +112,7 @@ Config.PhoneApplications = {
         app = 'racing',
         color = '#353b48',
         icon = 'fas fa-flag-checkered',
-        tooltipText = 'Racing',
+        tooltipText = 'Đua xe',
         job = false,
         blockedjobs = {},
         slot = 10,
@@ -132,7 +132,7 @@ Config.PhoneApplications = {
         app = 'lawyers',
         color = '#26d4ce',
         icon = 'fas fa-briefcase',
-        tooltipText = 'Services',
+        tooltipText = 'Dịch vụ',
         tooltipPos = 'bottom',
         job = false,
         blockedjobs = {},
@@ -179,7 +179,7 @@ Config.StoreApps = {
         app = 'territory',
         color = '#353b48',
         icon = 'fas fa-globe-europe',
-        tooltipText = 'Territorium',
+        tooltipText = 'Lãnh thổ',
         tooltipPos = 'right',
         style = '',
         job = false,
@@ -188,6 +188,6 @@ Config.StoreApps = {
         Alerts = 0,
         password = true,
         creator = 'QBCore',
-        title = 'Cửa Hàng APP',
+        title = 'Lãnh thổ',
     },
 }
