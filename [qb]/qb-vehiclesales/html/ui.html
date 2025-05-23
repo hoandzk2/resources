@@ -34,23 +34,23 @@
                     </div>
                     <div class="form-entry">
                         <div id="vehicle-plate" class="form-field">{{ licensePlate }}</div>
-                        <span class="form-field-summary">(Vehicle License Plate)</span>
+                        <span class="form-field-summary">(Biển số xe)</span>
                     </div>
                     <div class="form-entry">
                         <div class="form-field" v-if="mode==='sellVehicle'">
                             <input type="text"
                                 class="vehicle-description"
                                 maxlength="500"
-                                placeholder="Enter Your Vehicle Description Here, Maximum 500 Characters"
+                                placeholder="Nhập mô tả xe của bạn vào đây, tối đa 500 ký tự"
                                 v-model="vehicleDescription">
                         </div>
-                        <span class="form-field-summary"v-if="mode==='sellVehicle'">(Vehicle Description. max 500)</span>
+                        <span class="form-field-summary"v-if="mode==='sellVehicle'">(Mô tả xe. Tối đa 500 ký tự)</span>
                         <div id="vehicle-plate" class="form-field" v-if="mode==='buyVehicle'">{{ vehicleDescription }}</div>
                     </div>
 
                     <div class="form-entry" v-if="mode==='sellVehicle'">
                         <table class="pricing-table centred-h">
-                            <tr><td><span class="table-field-heading">Selling Price:</span>
+                            <tr><td><span class="table-field-heading">Giá bán:</span>
                                 <input type="text"
                                     class="vehicle-sell-price"
                                     placeholder="Enter Vehicle Price Here"
