@@ -86,26 +86,32 @@ end)
 RegisterNetEvent("linh_skin:applySkin", function(data)
     if not data or not data.model then return end
 
-    local modelName = data.model -- ví dụ "naruto"
-    local model = GetHashKey(modelName)
+    delay = 10
+    local model = GetHashKey(data.model)
     local playerPed = PlayerPedId()
 
     RequestModel(model)
-    while not HasModelLoaded(model) do
-        Wait(1000)
+    local timeout = 5000
+    while not HasModelLoaded(model) and timeout > 0 do
+        Wait(50)
+        timeout = timeout - 50
     end
 
-    if IsModelInCdimage(model) and IsModelValid(model) then
+    if HasModelLoaded(model) then
+        -- Bỏ dòng trigger load lại skin mặc định
+        -- TriggerEvent('QBCore:Client:OnPlayerLoaded')
+
         SetPlayerModel(PlayerId(), model)
         SetPedDefaultComponentVariation(PlayerPedId())
         SetModelAsNoLongerNeeded(model)
-        TriggerEvent('QBCore:Client:OnPlayerLoaded')
-        SetEntityHealth(PlayerPedId(), data.curHea or 200)
+        SetEntityHealth(PlayerPedId(), data.curHea)
+
         QBCore.Functions.Notify("Skin đã được áp dụng!", "success")
     else
-        QBCore.Functions.Notify("Model không hợp lệ hoặc chưa được load!", "error")
+        QBCore.Functions.Notify("Model không hợp lệ!", "error")
     end
 end)
+
 
 
 -- Đếm ngược delay
