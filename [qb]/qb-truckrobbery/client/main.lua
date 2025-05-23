@@ -72,7 +72,7 @@ CreateThread(function()
 				TaskStartScenarioInPlace(dealer, "WORLD_HUMAN_AA_SMOKE", 0, false)
 			end
 			if dist <= 2.0 then
-				DrawText3D(Config.MissionMarker.x, Config.MissionMarker.y, Config.MissionMarker.z, "~b~[E]~w~ To accept mission")
+				DrawText3D(Config.MissionMarker.x, Config.MissionMarker.y, Config.MissionMarker.z, "~b~ [E] ~w~ để chấp nhận nhiệm vụ")
 				if IsControlJustPressed(0, 38) then
 					TriggerServerEvent("AttackTransport:akceptujto")
 					sleep = 500
