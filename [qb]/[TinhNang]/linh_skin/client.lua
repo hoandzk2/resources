@@ -19,8 +19,6 @@ end)
 
 -- Lệnh mở menu chọn skin
 RegisterCommand("linh_skin", function()
-    local playerPed = PlayerPedId()
-
     if #skinList == 0 then
         return QBCore.Functions.Notify("Bạn không có skin nào!", "error")
     end
@@ -36,7 +34,7 @@ RegisterCommand("linh_skin", function()
         }
     }
 
-    for _, skin in pairs(skinList) do
+    for _, skin in ipairs(skinList) do
         table.insert(menuItems, {
             header = skin.name,
             txt = "Chọn skin này",
@@ -49,6 +47,7 @@ RegisterCommand("linh_skin", function()
 
     exports['qb-menu']:openMenu(menuItems)
 end)
+
 
 -- Khi chọn một skin
 RegisterNetEvent("linh_skin:selectSkin", function(data)
