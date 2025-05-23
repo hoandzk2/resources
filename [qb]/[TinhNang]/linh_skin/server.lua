@@ -28,11 +28,7 @@ function AddSkin(id, name)
     local Player = QBCore.Functions.GetPlayer(id)
     local identifier = Player.PlayerData.citizenid
 
-    MySQL.Async.execute("INSERT INTO linh_skin (identifier, name) VALUES (@identifier, @name)", {
-        ['@identifier'] = identifier,
-        ['@name'] = name
-    }, function(rowsChanged)
-        TriggerClientEvent('QBCore:Notify', id, "Bạn đã nhận được một skin!", "success")
-        TriggerClientEvent("linh_skin:update", id)
-    end)
+	MySQL.query('SELECT * FROM linh_skin WHERE identifier = ?', { identifier }, function(result)
+		cb(result)
+	end)
 end
