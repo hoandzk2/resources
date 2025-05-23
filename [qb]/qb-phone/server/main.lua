@@ -116,10 +116,6 @@ local function GenerateOwnerName()
     }
     return names[math.random(1, #names)]
 end
-RegisterNUICallback("getRaces", function(_, cb)
-    local races = MySQL.Sync.fetchAll("SELECT * FROM racing_tracks", {})
-    cb(races)
-end)
 
 
 local function sendNewMailToOffline(citizenid, mailData)
