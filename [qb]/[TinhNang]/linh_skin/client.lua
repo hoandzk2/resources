@@ -92,7 +92,7 @@ RegisterNetEvent("linh_skin:applySkin", function(data)
 
     RequestModel(model)
     while not HasModelLoaded(model) do
-        Wait(10)
+        Wait(1000)
     end
 
     if IsModelInCdimage(model) and IsModelValid(model) then
