@@ -683,7 +683,7 @@ Citizen.CreateThread(function()
     
             if ((data.timeout >= 300 and not endPoint) or data.timeout >= Config.ConnectTimeOut) and data.source ~= "debug" and os_time() - data.firstconnect > 5 then
                 remove(data)
-                Queue:DebugPrint(data.name .. "[" .. data.ids[1] .. "] was removed from the connecting queue because they timed out")
+                Queue:DebugPrint(data.name .. "[" .. data.ids[1] .. "] đã bị xóa khỏi hàng đợi kết nối vì chúng đã hết thời gian")
             else
                 i = i + 1
             end
@@ -706,7 +706,7 @@ Citizen.CreateThread(function()
                 SetConvar("sv_hostname", (qCount > 0 and "[" .. tostring(qCount) .. "] " or "") .. Queue.InitHostName)
             else
                 Queue.InitHostName = GetConvar("sv_hostname")
-                Queue.InitHostName = Queue.InitHostName ~= "default FXServer" and Queue.InitHostName or false
+                Queue.InitHostName = Queue.InitHostName ~= "FXServer mặc định" and Queue.InitHostName or false
             end
         end
     end
@@ -749,7 +749,7 @@ AddEventHandler("onResourceStop", function(resource)
 end)
 
 if Config.DisableHardCap then
-    Queue:DebugPrint("^1 [connectqueue] Disabling hardcap ^7")
+    Queue:DebugPrint("^1 [connectqueue] Vô hiệu hóa Hardcap ^7")
 
     AddEventHandler("onResourceStarting", function(resource)
         if resource == "hardcap" then CancelEvent() return end
@@ -762,7 +762,7 @@ local testAdds = 0
 local commands = {}
 
 commands.addq = function()
-    Queue:DebugPrint("ADDED DEBUG QUEUE")
+    Queue:DebugPrint("Đã thêm hàng đợi gỡ lỗi")
     Queue:AddToQueue({"steam:110000103fd1bb1"..testAdds}, os_time(), "TestAdd: " .. testAdds, "debug")
     testAdds = testAdds + 1
 end
@@ -771,7 +771,7 @@ commands.removeq = function(args)
     args[1] = tonumber(args[1])
     local name = Queue:GetQueueList()[args[1]] and Queue:GetQueueList()[args[1]].name or nil
     Queue:RemoveFromQueue(nil, nil, args[1])
-    Queue:DebugPrint("REMOVED " .. tostring(name) .. " FROM THE QUEUE")
+    Queue:DebugPrint("REMOVED " .. tostring(name) .. " Từ hàng đợi")
 end
 
 commands.printq = function()
@@ -784,7 +784,7 @@ end
 
 commands.addc = function()
     Queue:AddToConnecting({"debug"})
-    Queue:DebugPrint("ADDED DEBUG CONNECTING QUEUE")
+    Queue:DebugPrint("Đã thêm hàng đợi kết nối gỡ lỗi")
 end
 
 commands.removec = function(args)
@@ -795,7 +795,7 @@ commands.removec = function(args)
 end
 
 commands.printc = function()
-    Queue:DebugPrint("CURRENT CONNECTING LIST")
+    Queue:DebugPrint("Danh sách kết nối hiện tại")
 
     for pos, data in ipairs(Queue:GetConnectingList()) do
         Queue:DebugPrint(pos .. ": [src: " .. data.source .. "] " .. data.name .. "[" .. data.ids[1] .. "] | Priority: " .. (tostring(data.priority and data.priority or false)) .. " | Last Msg: " .. (data.source ~= "debug" and GetPlayerLastMsg(data.source) or "debug") .. " | Timeout: " .. data.timeout)
@@ -809,7 +809,7 @@ commands.printl = function()
 end
 
 commands.printp = function()
-    Queue:DebugPrint("CURRENT PRIORITY LIST")
+    Queue:DebugPrint("Danh sách ưu tiên hiện tại")
 
     for id, power in pairs(Queue:GetPriorityList()) do
         Queue:DebugPrint(id .. ": " .. tostring(power))
