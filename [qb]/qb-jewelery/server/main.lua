@@ -34,9 +34,9 @@ local function exploitBan(id, reason)
             2147483647,
             'qb-jewelery'
         })
-    TriggerEvent('qb-log:server:CreateLog', 'jewelery', 'Player Banned', 'red',
-        string.format('%s was banned by %s for %s', GetPlayerName(id), 'qb-jewelery', reason), true)
-    DropPlayer(id, 'You were permanently banned by the server for: Exploiting')
+    TriggerEvent('qb-log:server:CreateLog', 'jewelery', 'Người chơi bị cấm', 'red',
+        string.format('%s đã bị cấm bởi %s vì %s', GetPlayerName(id), 'qb-jewelery', reason), true)
+    DropPlayer(id, 'Bạn đã bị máy chủ cấm vĩnh viễn: khai thác')
 end
 
 local function getRewardBasedOnProbability(table)
@@ -66,7 +66,7 @@ RegisterNetEvent('qb-jewellery:server:vitrineReward', function(vitrineIndex)
     local Player = QBCore.Functions.GetPlayer(src)
     local cheating = false
     if Config.Locations[vitrineIndex] == nil or Config.Locations[vitrineIndex].isOpened ~= false then
-        exploitBan(src, 'Trying to trigger an exploitable event \"qb-jewellery:server:vitrineReward\"')
+        exploitBan(src, 'Cố gắng kích hoạt một sự kiện có thể khai thác \"qb-jewellery:server:vitrineReward\"')
         return
     end
     if cachedPoliceAmount[source] == nil then
@@ -106,7 +106,7 @@ RegisterNetEvent('qb-jewellery:server:vitrineReward', function(vitrineIndex)
             flags[license] = 1
         end
         if flags[license] >= 3 then
-            exploitBan('Getting flagged many times from exploiting the \"qb-jewellery:server:vitrineReward\" event')
+            exploitBan('Bị gắn cờ nhiều lần khai thác \"qb-jewellery:server:vitrineReward\" event')
         else
             DropPlayer(src, 'Exploiting')
         end
