@@ -1,4 +1,4 @@
-Framework = exports["lux-core"]:GetCoreObject()
+Framework = exports["qb-core"]:GetCoreObject()
 
 Keys = {
     ["ESC"] = 322, ["F1"] = 288, ["F2"] = 289, ["F3"] = 170, ["F5"] = 166, ["F6"] = 167, ["F7"] = 168, ["F8"] = 169, ["F9"] = 56, ["F10"] = 57,
@@ -15,13 +15,13 @@ isLoggedIn = false
 stress = 0
 PlayerJob = {}
 local inEvent = false
-RegisterNetEvent('lux-event:joinEvent')
-AddEventHandler('lux-event:joinEvent', function(type, mainCoord, radius, team, teleCoord, health, armor, weapon, ammo, instance)
+RegisterNetEvent('qb-event:joinEvent')
+AddEventHandler('qb-event:joinEvent', function(type, mainCoord, radius, team, teleCoord, health, armor, weapon, ammo, instance)
 	inEvent = true
 end)
 
-RegisterNetEvent('lux-event:leaveEvent')
-AddEventHandler('lux-event:leaveEvent', function()
+RegisterNetEvent('qb-event:leaveEvent')
+AddEventHandler('qb-event:leaveEvent', function()
     Wait(3000)
 	inEvent = false
 end)
@@ -106,8 +106,8 @@ Citizen.CreateThread(function()
     end
 end)
 
-RegisterNetEvent('lux-hud:client:update:stress')
-AddEventHandler('lux-hud:client:update:stress', function(newStress)
+RegisterNetEvent('qb-hud:client:update:stress')
+AddEventHandler('qb-hud:client:update:stress', function(newStress)
     stress = newStress or stress
 end)
 
@@ -117,7 +117,7 @@ Citizen.CreateThread(function()
             StressGain = math.ceil(StressGain)
             if StressGain > 0 then
                 Framework.Functions.Notify('Căng thẳng', "primary", 2000)
-                TriggerServerEvent('lux-hud:Server:UpdateStress', StressGain)
+                TriggerServerEvent('qb-hud:Server:UpdateStress', StressGain)
                 StressGain = 0
             end
         end
@@ -136,7 +136,7 @@ CreateThread(function() -- Speeding
                 local stressSpeed = seatbeltOn and 240 or 120
                 if speed >= stressSpeed and GetVehicleClass(vehicle) ~= 14 and 
                 (GetVehicleClass(vehicle) == 8 and not IsPedWearingHelmet(ped)) then
-                    TriggerServerEvent('lux-hud:server:gain:stress', math.random(1, 3))
+                    TriggerServerEvent('qb-hud:server:gain:stress', math.random(1, 3))
                 end
             end
         end

@@ -1,7 +1,7 @@
 local ResetStress = false -- stress
-local Framework = exports["lux-core"]:GetCoreObject()
-RegisterServerEvent("lux-hud:Server:UpdateStress")
-AddEventHandler('lux-hud:Server:UpdateStress', function(StressGain)
+local Framework = exports["qb-core"]:GetCoreObject()
+RegisterServerEvent("qb-hud:Server:UpdateStress")
+AddEventHandler('qb-hud:Server:UpdateStress', function(StressGain)
 	local src = source
     local Player = Framework.Functions.GetPlayer(src)
     local newStress
@@ -19,12 +19,12 @@ AddEventHandler('lux-hud:Server:UpdateStress', function(StressGain)
             newStress = 100
         end
         Player.Functions.SetMetaData("stress", newStress)
-		TriggerClientEvent("lux-hud:client:update:stress", src, newStress)
+		TriggerClientEvent("qb-hud:client:update:stress", src, newStress)
 	end
 end)
 
-RegisterServerEvent('lux-hud:server:gain:stress')
-AddEventHandler('lux-hud:server:gain:stress', function(amount)
+RegisterServerEvent('qb-hud:server:gain:stress')
+AddEventHandler('qb-hud:server:gain:stress', function(amount)
     local src = source
     local Player = Framework.Functions.GetPlayer(src)
     local newStress
@@ -42,13 +42,13 @@ AddEventHandler('lux-hud:server:gain:stress', function(amount)
             newStress = 100
         end
         Player.Functions.SetMetaData("stress", newStress)
-        TriggerClientEvent("lux-hud:client:update:stress", src, newStress)
+        TriggerClientEvent("qb-hud:client:update:stress", src, newStress)
         TriggerClientEvent('Framework:Notify', src, 'Căng thẳng', 'error', 1500)
 	end
 end)
 
-RegisterServerEvent('lux-hud:Server:RelieveStress')
-AddEventHandler('lux-hud:Server:RelieveStress', function(amount)
+RegisterServerEvent('qb-hud:Server:RelieveStress')
+AddEventHandler('qb-hud:Server:RelieveStress', function(amount)
     local src = source
     local Player = Framework.Functions.GetPlayer(src)
     local newStress
@@ -66,13 +66,13 @@ AddEventHandler('lux-hud:Server:RelieveStress', function(amount)
             newStress = 100
         end
         Player.Functions.SetMetaData("stress", newStress)
-        TriggerClientEvent("lux-hud:client:update:stress", src, newStress)
+        TriggerClientEvent("qb-hud:client:update:stress", src, newStress)
         TriggerClientEvent('Framework:Notify', src, 'Giảm căng thẳng')
 	end
 end)
 
-RegisterServerEvent('lux-hud:server:remove:stress')
-AddEventHandler('lux-hud:server:remove:stress', function(Amount)
+RegisterServerEvent('qb-hud:server:remove:stress')
+AddEventHandler('qb-hud:server:remove:stress', function(Amount)
     local Player = Framework.Functions.GetPlayer(source)
     local NewStress = nil
     if Player ~= nil then
@@ -80,6 +80,6 @@ AddEventHandler('lux-hud:server:remove:stress', function(Amount)
       if NewStress <= 0 then NewStress = 0 end
       if NewStress > 105 then NewStress = 100 end
       Player.Functions.SetMetaData("stress", NewStress)
-      TriggerClientEvent("lux-hud:client:update:stress", Player.PlayerData.source, NewStress)
+      TriggerClientEvent("qb-hud:client:update:stress", Player.PlayerData.source, NewStress)
     end
 end)

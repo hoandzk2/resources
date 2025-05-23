@@ -1,6 +1,6 @@
 local cashAmount = 0
 local bankAmount = 0
-Framework = exports["lux-core"]:GetCoreObject()
+Framework = exports["qb-core"]:GetCoreObject()
 
  RegisterNetEvent("hud:client:ShowMoney")
  AddEventHandler("hud:client:ShowMoney", function(type)
@@ -16,8 +16,8 @@ Framework = exports["lux-core"]:GetCoreObject()
      })
  end)
 
- RegisterNetEvent("lux-hud:client:money:change")
- AddEventHandler("lux-hud:client:money:change", function(type, amount, isMinus)
+ RegisterNetEvent("qb-hud:client:money:change")
+ AddEventHandler("qb-hud:client:money:change", function(type, amount, isMinus)
      Framework.Functions.GetPlayerData(function(PlayerData)
          CashAmount = PlayerData.money["cash"]
      end)

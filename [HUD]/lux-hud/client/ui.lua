@@ -29,18 +29,18 @@ end
 
 local toggleHud = true
 
-RegisterNetEvent('lux-hud:toggleHud')
-AddEventHandler('lux-hud:toggleHud', function(toggleHud)
+RegisterNetEvent('qb-hud:toggleHud')
+AddEventHandler('qb-hud:toggleHud', function(toggleHud)
     QBHud.Show = toggleHud
 end)
 
-RegisterNetEvent("lux-hud:client:update:needs")
-AddEventHandler("lux-hud:client:update:needs", function(NewHunger, NewThirst)
+RegisterNetEvent("qb-hud:client:update:needs")
+AddEventHandler("qb-hud:client:update:needs", function(NewHunger, NewThirst)
     hunger, thirst = newHunger, newThirst
 end)
 
-RegisterNetEvent('lux-hud:client:update:stress')
-AddEventHandler('lux-hud:client:update:stress', function(NewStress)
+RegisterNetEvent('qb-hud:client:update:stress')
+AddEventHandler('qb-hud:client:update:stress', function(NewStress)
     stress = newStress
 end)
 
@@ -58,7 +58,7 @@ Citizen.CreateThread(function()
                 speed = GetEntitySpeed(GetVehiclePedIsIn(PlayerPedId(), false)) * 3.6
                 -- local Plate = GetVehicleNumberPlateText(GetVehiclePedIsIn(PlayerPedId()))
                 -- local pos = GetEntityCoords(PlayerPedId())
-                -- local fuel = exports['lux-fuel']:GetFuelLevel(Plate)
+                -- local fuel = exports['qb-fuel']:GetFuelLevel(Plate)
                 -- local engine = GetVehicleEngineHealth(GetVehiclePedIsIn(PlayerPedId()))
                 if hunger < 0 then hunger = 0 end
                 if thirst < 0 then thirst = 0 end
@@ -96,7 +96,7 @@ Citizen.CreateThread(function()
                 end)
                 speed = GetEntitySpeed(GetVehiclePedIsIn(PlayerPedId(), false)) * 3.6
                 local Plate = GetVehicleNumberPlateText(GetVehiclePedIsIn(PlayerPedId()))
-                -- local fuel = exports['lux-fuel']:GetFuelLevel(Plate)
+                -- local fuel = exports['qb-fuel']:GetFuelLevel(Plate)
                 local fuel = exports["LegacyFuel"]:GetFuel(GetVehiclePedIsIn(PlayerPedId(), false))
                 -- local pos = GetEntityCoords(PlayerPedId())
                 -- local engine = GetVehicleEngineHealth(GetVehiclePedIsIn(PlayerPedId()))
@@ -139,7 +139,7 @@ Citizen.CreateThread(function()
             if IsPedInAnyVehicle(PlayerPedId(), false) then
                 speed = GetEntitySpeed(GetVehiclePedIsIn(PlayerPedId(), false)) * 3.6
                 if speed >= 250 then
-                    TriggerServerEvent('lux-hud:server:gain:stress', math.random(1, 2))
+                    TriggerServerEvent('qb-hud:server:gain:stress', math.random(1, 2))
                 end
             end
         end
@@ -204,16 +204,16 @@ AddEventHandler("seatbelt:client:ToggleSeatbelt", function(toggle)
     end
 end)
 
-RegisterNetEvent('lux-hud:client:ToggleHarness')
-AddEventHandler('lux-hud:client:ToggleHarness', function(toggle)
+RegisterNetEvent('qb-hud:client:ToggleHarness')
+AddEventHandler('qb-hud:client:ToggleHarness', function(toggle)
     SendNUIMessage({
         action = "harness",
         toggle = toggle
     })
 end)
 
-RegisterNetEvent('lux-hud:client:UpdateNitrous')
-AddEventHandler('lux-hud:client:UpdateNitrous', function(toggle, level, IsActive)
+RegisterNetEvent('qb-hud:client:UpdateNitrous')
+AddEventHandler('qb-hud:client:UpdateNitrous', function(toggle, level, IsActive)
         on = toggle
         nivel = level
         activo = IsActive
