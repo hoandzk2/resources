@@ -98,8 +98,7 @@ RegisterNetEvent("linh_skin:applySkin", function(data)
     end
 
     if HasModelLoaded(model) then
-        -- Bỏ dòng trigger load lại skin mặc định
-        -- TriggerEvent('QBCore:Client:OnPlayerLoaded')
+        TriggerEvent('QBCore:Client:OnPlayerLoaded')
 
         SetPlayerModel(PlayerId(), model)
         SetPedDefaultComponentVariation(PlayerPedId())
