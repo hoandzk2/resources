@@ -29,7 +29,7 @@ CreateThread(function()
                 for k in pairs(Races) do
                     if Races[k] ~= nil then
                         if #(pos - vector3(Races[k].startx, Races[k].starty, Races[k].startz)) < 15.0 and not Races[k].started then
-                            DrawText3Ds(Races[k].startx, Races[k].starty, Races[k].startz, '[~g~H~w~] To Join The Race (~g~' .. Config.Currency .. Races[k].amount .. ',-~w~)')
+                            DrawText3Ds(Races[k].startx, Races[k].starty, Races[k].startz, '[~g~H~w~] Tham gia cuộc đua (~g~' .. Config.Currency .. Races[k].amount .. ',-~w~)')
                             if IsControlJustReleased(0, 74) then
                                 TriggerServerEvent('qb-streetraces:JoinRace', k)
                             end
@@ -40,7 +40,7 @@ CreateThread(function()
             -- Not started in race yet
             if RaceId ~= 0 and not InRace then
                 if Races[RaceId] and #(pos - vector3(Races[RaceId].startx, Races[RaceId].starty, Races[RaceId].startz)) < 15.0 and not Races[RaceId].started then
-                    DrawText3Ds(Races[RaceId].startx, Races[RaceId].starty, Races[RaceId].startz, 'Race Will Start Soon')
+                    DrawText3Ds(Races[RaceId].startx, Races[RaceId].starty, Races[RaceId].startz, 'Cuộc đua sẽ sớm bắt đầu')
                 end
             end
             -- In race and started
@@ -72,7 +72,7 @@ RegisterNetEvent('qb-streetraces:RaceDone', function(race, winner)
     if RaceId ~= 0 and RaceId == race then
         RaceId = 0
         InRace = false
-        QBCore.Functions.Notify('Race Is Over! The Winner Is ' .. winner .. '!')
+        QBCore.Functions.Notify('Cuộc đua đã kết thúc! Người chiến thắng là ' .. winner .. '!')
     end
 end)
 
@@ -107,10 +107,10 @@ RegisterNetEvent('qb-streetraces:CreateRace', function(amount)
             }
             TriggerServerEvent('qb-streetraces:NewRace', race)
         else
-            QBCore.Functions.Notify('End Position Is Too Close', 'error')
+            QBCore.Functions.Notify('Vị trí kết thúc quá gần', 'error')
         end
     else
-        QBCore.Functions.Notify('You Need To Drop A Marker', 'error')
+        QBCore.Functions.Notify('Bạn cần phải bỏ một điểm đánh dấu', 'error')
     end
 end)
 
