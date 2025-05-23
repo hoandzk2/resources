@@ -9,7 +9,7 @@ local Translations = {
         -- Nếu có thông báo thành công nào, bạn có thể thêm ở đây
     },
     info = {
-        progressbar = 'Đang đập vỡ tủ trưng bày',
+        progressbar = 'Đang đập vỡ tủ trưng bày đợi chút',
     },
     general = {
         target_label = 'Đập vỡ tủ trưng bày',
