@@ -12,7 +12,7 @@ AddEventHandler(currentResourceName..':debug', function(data)
                     type = "client",
                     event = currentResourceName..':debug',
                     icon = "fas fa-box-circle-check",
-                    label = "Hello World",
+                    label = "Xin chào thế giới",
                     remove = true
                 },
             },
