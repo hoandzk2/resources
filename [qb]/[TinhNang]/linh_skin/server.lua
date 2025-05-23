@@ -4,11 +4,10 @@ local QBCore = exports['qb-core']:GetCoreObject()
 QBCore.Functions.CreateCallback("linh_skin:getownedskin", function(source, cb)
     local Player = QBCore.Functions.GetPlayer(source)
     local identifier = Player.PlayerData.citizenid
-    MySQL.Async.fetchAll('SELECT * FROM linh_skin WHERE identifier = @identifier', {
-        ['@identifier'] = identifier
-    }, function(result)
-        cb(result)
-    end)
+	MySQL.query('SELECT * FROM linh_skin WHERE identifier = ?', { identifier }, function(result)
+		cb(result)
+	end)
+
 end)
 
 -- Lệnh dành cho admin thêm skin cho người chơi
@@ -28,7 +27,9 @@ function AddSkin(id, name)
     local Player = QBCore.Functions.GetPlayer(id)
     local identifier = Player.PlayerData.citizenid
 
-	MySQL.query('SELECT * FROM linh_skin WHERE identifier = ?', { identifier }, function(result)
-		cb(result)
-	end)
+	MySQL.update("INSERT INTO linh_skin (identifier, name) VALUES (?, ?)", {
+		identifier,
+		name
+	})
+
 end
