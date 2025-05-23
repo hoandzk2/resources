@@ -33,7 +33,7 @@ Config.WearableParts = { -- unused if Config.UseWearableParts is false (feel fre
 Config.Shops = {
     mechanic = { -- City location
         managed = true,
-        shopLabel = 'LS Customs',
+        shopLabel = 'Độ Xe',
         showBlip = true,
         blipSprite = 72,
         blipColor = 46,
@@ -49,7 +49,7 @@ Config.Shops = {
     },
     mechanic2 = { -- Harmony Location
         managed = true,
-        shopLabel = 'LS Customs',
+        shopLabel = 'Độ Xe',
         showBlip = true,
         blipSprite = 72,
         blipColor = 46,
@@ -65,7 +65,7 @@ Config.Shops = {
     },
     mechanic3 = { -- Airport Location
         managed = true,
-        shopLabel = 'LS Customs',
+        shopLabel = 'Độ Xe',
         showBlip = true,
         blipSprite = 72,
         blipColor = 46,
