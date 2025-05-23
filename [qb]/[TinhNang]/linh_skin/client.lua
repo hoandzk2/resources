@@ -1,123 +1,119 @@
 local QBCore = exports['qb-core']:GetCoreObject()
-local skinlist = {}
+local skinList = {}
 local delay = 0
 
--- Lấy danh sách skin sau 10 giây khi QBCore đã sẵn sàng
+-- Lấy danh sách skin khi game load xong
 CreateThread(function()
-    Wait(10000)
-    QBCore.Functions.TriggerCallback("linh_skin:getownedskin", function(skin)
-        skinlist = skin
+    Wait(10000) -- Chờ QBCore và nhân vật load xong
+    QBCore.Functions.TriggerCallback("linh_skin:getownedskin", function(skins)
+        skinList = skins or {}
     end)
 end)
 
--- Khi có cập nhật skin từ server
+-- Khi server gửi cập nhật danh sách skin
 RegisterNetEvent("linh_skin:update", function()
-    QBCore.Functions.TriggerCallback("linh_skin:getownedskin", function(skin)
-        skinlist = skin
+    QBCore.Functions.TriggerCallback("linh_skin:getownedskin", function(skins)
+        skinList = skins or {}
     end)
 end)
 
--- Lệnh mở menu skin
+-- Lệnh mở menu chọn skin
 RegisterCommand("linh_skin", function()
-    local playerPed = PlayerPedId()
-    local elements = {
-        {label = "Skin mặc định", name = "citizen_wear"}
+    if #skinList == 0 then
+        return QBCore.Functions.Notify("Bạn không có skin nào!", "error")
+    end
+
+    local menuItems = {
+        {
+            header = "Skin mặc định",
+            txt = "Quay về skin ban đầu",
+            params = {
+                event = "linh_skin:selectSkin",
+                args = { name = "citizen_wear" }
+            }
+        }
     }
 
-    if next(skinlist) ~= nil then
-        for _, v in ipairs(skinlist) do
-            table.insert(elements, {
-                label = v.name,
-                name = v.name
-            })
-        end
-
-        exports['qb-menu']:openMenu({
-            {
-                header = "VIP Skin",
-                isMenuHeader = true
-            },
-            table.unpack(
-                QBCore.Shared.TableToMenuItems(elements, function(item)
-                    return {
-                        header = item.label,
-                        txt = "Chọn skin này",
-                        params = {
-                            event = "linh_skin:selectSkin",
-                            args = { name = item.name }
-                        }
-                    }
-                end)
-            )
+    for _, skin in ipairs(skinList) do
+        table.insert(menuItems, {
+            header = skin.name,
+            txt = "Chọn skin này",
+            params = {
+                event = "linh_skin:selectSkin",
+                args = { name = skin.name }
+            }
         })
-    else
-        TriggerEvent("QBCore:Notify", "Bạn không có skin nào!", "error")
     end
+
+    exports['qb-menu']:openMenu(menuItems)
 end)
 
--- Khi chọn skin
+
+-- Khi chọn một skin
 RegisterNetEvent("linh_skin:selectSkin", function(data)
-    local name = data.name
-    if delay ~= 0 then
-        return TriggerEvent("QBCore:Notify", "Đang bị delay còn ~r~" .. delay, "error")
+    if not data or not data.name then return end
+    if delay > 0 then
+        return QBCore.Functions.Notify("Vui lòng chờ " .. delay .. " giây!", "error")
     end
 
     local playerPed = PlayerPedId()
-    local curHea = GetEntityHealth(playerPed)
+    local currentHealth = GetEntityHealth(playerPed)
 
-    if name == "citizen_wear" then
-        delay = 100
+    if data.name == "citizen_wear" then
+        delay = 10
         TriggerServerEvent("qb-clothing:loadPlayerSkin")
         Wait(1000)
-        SetEntityHealth(playerPed, curHea)
-        Wait(10000)
+        SetEntityHealth(playerPed, currentHealth)
     else
         exports['qb-menu']:openMenu({
+            { header = "Bạn chắc chắn chọn skin này?", isMenuHeader = true },
             {
-                header = "Bạn muốn đổi thành skin này?",
-                isMenuHeader = true
-            },
-            {
-                header = "Có",
+                header = "✅ Có",
                 params = {
                     event = "linh_skin:applySkin",
-                    args = { model = name, curHea = curHea }
+                    args = { model = data.name, curHea = currentHealth }
                 }
             },
             {
-                header = "Không",
-                params = {
-                    event = ""
-                }
+                header = "❌ Không",
+                params = {}
             }
         })
     end
 end)
 
--- Áp dụng model mới
+-- Áp dụng skin
 RegisterNetEvent("linh_skin:applySkin", function(data)
-    delay = 100
+    if not data or not data.model then return end
+
+    delay = 10
+    local model = GetHashKey(data.model)
     local playerPed = PlayerPedId()
-    local model = data.model
-    local curHea = data.curHea
 
     RequestModel(model)
-    while not HasModelLoaded(model) do
-        Wait(0)
+    local timeout = 5000
+    while not HasModelLoaded(model) and timeout > 0 do
+        Wait(50)
+        timeout = timeout - 50
     end
 
-    if IsModelInCdimage(model) and IsModelValid(model) then
+    if HasModelLoaded(model) then
+        TriggerEvent('QBCore:Client:OnPlayerLoaded')
+
         SetPlayerModel(PlayerId(), model)
         SetPedDefaultComponentVariation(PlayerPedId())
-        TriggerEvent('QBCore:Client:OnPlayerLoaded') -- Khôi phục vũ khí
-        SetEntityHealth(PlayerPedId(), curHea)
         SetModelAsNoLongerNeeded(model)
+        SetEntityHealth(PlayerPedId(), data.curHea)
+
+        QBCore.Functions.Notify("Skin đã được áp dụng!", "success")
     else
-        TriggerEvent("QBCore:Notify", "Model không hợp lệ", "error")
+        QBCore.Functions.Notify("Model không hợp lệ!", "error")
     end
 end)
 
--- Delay reset
+
+
+-- Đếm ngược delay
 CreateThread(function()
     while true do
         Wait(1000)
