@@ -1,5 +1,5 @@
 Config = Config or {}
-Config.BillingCommissions = { -- This is a percentage (0.10) == 10%
+Config.BillingCommissions = { -- Đây là một tỷ lệ phần trăm (0,10) == 10%
     mechanic = 0.10
 }
 Config.TweetDuration = 12 -- How many hours to load tweets (12 will load the past 12 hours of tweets)
