@@ -38,7 +38,7 @@ RegisterNetEvent('qb-streetraces:JoinRace', function(RaceId)
             Races[RaceId].joined[#Races[RaceId].joined + 1] = src
             TriggerClientEvent('qb-streetraces:SetRace', -1, Races)
             TriggerClientEvent('qb-streetraces:SetRaceId', src, RaceId)
-            TriggerClientEvent('QBCore:Notify', src, 'You joined the race', 'primary')
+            TriggerClientEvent('QBCore:Notify', src, 'Bạn đã tham gia cuộc đua', 'primary')
             TriggerClientEvent('QBCore:Notify', Races[RaceId].creator, GetPlayerName(src) .. ' Tham gia cuộc đuas', 'primary')
             UpdateRaceInfo(Races[RaceId])
         else
@@ -54,7 +54,7 @@ QBCore.Commands.Add(Config.Commands.CreateRace, 'Bắt đầu một cuộc đua 
     local src = source
     local amount = tonumber(args[1])
 
-    if not amount then return TriggerClientEvent('QBCore:Notify', src, 'Usage: /' .. Config.Commands.CreateRace .. ' [AMOUNT]', 'error') end
+    if not amount then return TriggerClientEvent('QBCore:Notify', src, 'Cách sử dụng: /' .. Config.Commands.CreateRace .. ' [AMOUNT]', 'error') end
     if amount < Config.MinimumStake then
         return TriggerClientEvent('QBCore:Notify', src, 'Cổ phần tối thiểu là ' .. Config.Currency .. Config.MinimumStake, 'error')
     end
