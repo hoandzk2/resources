@@ -4,9 +4,9 @@ Apartments.SpawnOffset = 30
 Apartments.Locations = {
     ["apartment1"] = {
         name = "apartment1",
-        label = "South Rockford Drive",
+        label = 'Bãi đỗ xe ',
         coords = {
-            enter = vector4(-667.02, -1105.24, 14.63, 242.32),
+            coords = vector4(327.56, -205.08, 53.08, 163.5),
         },
         polyzoneBoxData = {
             heading = 245,
