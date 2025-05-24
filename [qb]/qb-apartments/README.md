@@ -64,16 +64,14 @@ Apartments = {} -- Don't touch
 Apartments.SpawnOffset = 30 -- Don't touch
 
 Apartments.Locations = {
-    ["apartment1"] = {
-    name = "apartment1",
-    label = "Bãi đỗ xe",
-    coords = {
-        enter = vector4(327.56, -205.08, 53.08, 163.5),
-        -- Nếu bạn không cần doorbell thì có thể bỏ luôn hoặc thêm nếu cần:
-        -- doorbell = vector4(x, y, z, h),
+    ["apartment1"] = { -- Needs to be unique
+        name = "apartment1", -- Apartment id
+        label = "South Rockford Drive", -- Apartment Label (for Blip and other stuff)
+        coords = {
+            enter = {x = -667.372, y = -1106.034, z = 14.629, h = 65.033}, -- Enter Apartment Marker Location
+            doorbell = {x = -667.601, y = -1107.354, z = 15.133, h = 65.033}, -- Exit Apartment Marker Location
+        }
     },
-},
-
     ["apartment2"] = {
         name = "apartment2",
         label = "Morningwood Blvd",
