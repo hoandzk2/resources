@@ -3,6 +3,8 @@ local npcHeading = 171.22
 local npcModel = "s_m_y_cop_01"
 local currentJob = nil
 
+local QBCore = exports['qb-core']:GetCoreObject()
+
 -- Tạo NPC cảnh sát
 Citizen.CreateThread(function()
     RequestModel(GetHashKey(npcModel))
@@ -16,7 +18,7 @@ Citizen.CreateThread(function()
     SetBlockingOfNonTemporaryEvents(npc, true)
 end)
 
--- Hiển thị text 3D
+-- Hàm hiển thị text 3D
 function DrawText3D(x, y, z, text)
     SetTextScale(0.35, 0.35)
     SetTextFont(4)
@@ -37,7 +39,19 @@ function ShowNotification(msg)
     DrawNotification(false, false)
 end
 
--- Xử lý nhận việc bằng phím E
+-- Lấy job hiện tại mỗi 10s để cập nhật currentJob (đảm bảo chính xác)
+Citizen.CreateThread(function()
+    while true do
+        local player = PlayerPedId()
+        local playerId = PlayerId()
+        local ped = PlayerPedId()
+        local playerData = QBCore.Functions.GetPlayerData()
+        currentJob = playerData.job.name
+        Citizen.Wait(10000)
+    end
+end)
+
+-- Xử lý nhận việc cảnh sát bằng phím E
 Citizen.CreateThread(function()
     while true do
         Wait(0)
@@ -50,13 +64,7 @@ Citizen.CreateThread(function()
 
             if IsControlJustReleased(0, 38) then -- phím E
                 if currentJob == nil or currentJob == "unemployed" then
-                    currentJob = "police"
-                    ShowNotification("Bạn đã nhận việc cảnh sát thành công!")
-                    TriggerEvent('chat:addMessage', {
-                        color = { 0, 0, 255 },
-                        multiline = true,
-                        args = {"NPC Cảnh sát", "Chào mừng bạn gia nhập đội cảnh sát!"}
-                    })
+                    TriggerServerEvent("myjob:setPolice")
                 else
                     ShowNotification("Bạn đã có công việc rồi, không thể nhận thêm!")
                 end
@@ -65,7 +73,7 @@ Citizen.CreateThread(function()
     end
 end)
 
--- Biến và lệnh /toaDo admin
+-- Xử lý admin trả về status
 local showCoords = false
 local coordsText = ""
 local coordsTimer = 0
