@@ -1436,25 +1436,25 @@ RegisterNetEvent("qb-clothing:client:adjustfacewear", function(type)
     end
     ClearPedTasks(PlayerPedId())
 end)
--- RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
---     TriggerServerEvent("qb-clothes:loadPlayerSkin")
---     PlayerData = QBCore.Functions.GetPlayerData()
---     loadStores()
--- --    QBCore.Shared.Jobs = exports['qb-jobs']:AddJobs()
--- end)
 RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
-    local pedModel = GetEntityModel(PlayerPedId())
-
-    -- CHỈ LOAD SKIN MẶC ĐỊNH NẾU LÀ MODEL FREEMODE
-    if pedModel == GetHashKey("mp_m_freemode_01") or pedModel == GetHashKey("mp_f_freemode_01") then
-        TriggerServerEvent("qb-clothes:loadPlayerSkin")
-    else
-        print("[linh_skin] Model hiện tại là custom -> không load skin mặc định")
-    end
-
+    TriggerServerEvent("qb-clothes:loadPlayerSkin")
     PlayerData = QBCore.Functions.GetPlayerData()
     loadStores()
+--    QBCore.Shared.Jobs = exports['qb-jobs']:AddJobs()
 end)
+-- RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
+--     local pedModel = GetEntityModel(PlayerPedId())
+
+--     -- CHỈ LOAD SKIN MẶC ĐỊNH NẾU LÀ MODEL FREEMODE
+--     if pedModel == GetHashKey("mp_m_freemode_01") or pedModel == GetHashKey("mp_f_freemode_01") then
+--         TriggerServerEvent("qb-clothes:loadPlayerSkin")
+--     else
+--         print("[linh_skin] Model hiện tại là custom -> không load skin mặc định")
+--     end
+
+--     PlayerData = QBCore.Functions.GetPlayerData()
+--     loadStores()
+-- end)
 
 RegisterNetEvent('QBCore:Client:OnJobUpdate', function(JobInfo)
     PlayerData.job = JobInfo
